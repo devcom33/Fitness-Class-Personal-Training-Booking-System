@@ -2,16 +2,13 @@ package org.heymouad.bookingmanagementsystem.entities;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.Instant;
 import java.util.UUID;
 
-
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,14 +19,20 @@ public class FitnessClasses {
     @Id
     private UUID id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String name;
 
     @Column(nullable = false)
     private String description;
 
     @Column(nullable = false)
-    private int duration_minutes;
+    private int durationMinutes;
+
+    @Column(nullable = false)
+    private int capacity;
+
+    @Column(nullable = false, length = 50)
+    private String category;
 
     @CreatedDate
     private Instant createdAt;
