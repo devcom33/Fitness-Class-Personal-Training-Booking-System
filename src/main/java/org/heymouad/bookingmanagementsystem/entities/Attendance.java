@@ -20,8 +20,8 @@ public class Attendance {
     private UUID id;
 
     @OneToOne
-    @JoinTable(name = "bookings_id")
-    private Bookings bookings;
+    @JoinColumn(name = "booking_id")
+    private Bookings booking;
 
     @CreatedDate
     private Instant attendanceAt;
