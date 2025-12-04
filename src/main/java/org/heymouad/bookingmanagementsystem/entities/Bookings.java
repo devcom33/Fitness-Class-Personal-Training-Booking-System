@@ -29,7 +29,7 @@ public class Bookings {
 
 
     @ManyToOne
-    @JoinColumn(name = "class_schedules_id")
+    @JoinColumn(name = "class_schedule_id")
     private ClassSchedules classSchedules;
 
     @ManyToOne
