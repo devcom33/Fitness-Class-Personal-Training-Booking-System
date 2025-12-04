@@ -2,15 +2,18 @@ package org.heymouad.bookingmanagementsystem.entities;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.heymouad.bookingmanagementsystem.enums.BookingsStatus;
+import lombok.*;
+import org.antlr.v4.runtime.misc.NotNull;
+import org.heymouad.bookingmanagementsystem.enums.DayOfWeek;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
+
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,15 +25,16 @@ public class ClassSchedules {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "instructor_id")
+    @JoinColumn(name = "instructor_id", nullable = false)
     private Instructor instructor;
 
     @ManyToOne
-    @JoinColumn(name = "fitness_classes_id")
+    @JoinColumn(name = "fitness_classes_id", nullable = false)
     private FitnessClasses fitnessClasses;
 
     @Column(nullable = false)
-    private int DayOfWeek;
+    @Enumerated(EnumType.STRING)
+    private DayOfWeek dayOfWeek;
 
     @Column(nullable = false)
     private ZonedDateTime startTime;
@@ -40,4 +44,10 @@ public class ClassSchedules {
 
     @Column(nullable = false)
     private boolean recurring;
+
+    @CreatedDate
+    private Instant createdAt;
+
+    @LastModifiedDate
+    private Instant modifiedAt;
 }
