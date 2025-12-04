@@ -2,11 +2,10 @@ package org.heymouad.bookingmanagementsystem.entities;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -16,8 +15,15 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
-@Table(name = "users")
+@Table(
+        name = "users",
+        indexes = {
+                @Index(name = "idx_user_role", columnList = "role_id"),
+                @Index(name = "idx_user_email", columnList = "email")
+        }
+)
 public class User {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Id
@@ -32,7 +38,14 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "role_id")
+    private Role role;
+
     @CreatedDate
     private Instant createdAt;
+
+    @LastModifiedDate
+    private Instant modifiedAt;
 
 }
